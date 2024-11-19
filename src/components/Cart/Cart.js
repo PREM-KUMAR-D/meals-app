@@ -6,24 +6,32 @@ import CartContext from "../../store/cart-context";
 const Cart = (props)=>{
 
     const cartCtx = useContext(CartContext);
+    const items = cartCtx.items;
 
-    console.log(" From Cart " +  JSON.stringify(cartCtx));
+  
 
 
-    const cartItems = (
-        <ul className={classes['cart-items']}>
-          {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      );
+    const cartItems =  <ul className={classes['cart-items']}>
+          { items.map((item) => {
+            
+            return (
+              <li key={item.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>{item.title}</span>
+                <span>${(item.price * item.amount).toFixed(2)}</span>
+              </li>
+            );
+            
+          })}
+        </ul>;
+
+    
 
     return (
         <Modal onClose={props.onClose}>
             {cartItems}
             <div className={classes.total}>
                 <span> Total Amount</span>
-                <span>{cartCtx.totalPrice}</span>
+                <span>${cartCtx.totalPrice}</span>
             </div>
             <div className={classes.actions}>
                 <button 

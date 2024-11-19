@@ -27,7 +27,7 @@ const CartProvider = (props) => {
     })
 
     setTotalPrice((price)=>{
-      let updatedPrice = price + itemTobeAdded.amount * itemTobeAdded.price;
+      let updatedPrice = parseFloat(price) + parseFloat(itemTobeAdded.amount * itemTobeAdded.price);
       return updatedPrice.toFixed(2);
     })
 
