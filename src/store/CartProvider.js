@@ -15,13 +15,17 @@ const CartProvider = (props) => {
 
     updateItems((prevItems)=>{
       const existingItemIndex = prevItems.findIndex(item => item.id === itemTobeAdded.id);
-      const updatedItems = [...prevItems];
+      let updatedItems =[...prevItems];
 
       if (existingItemIndex !== -1) {
-          
-        updatedItems[existingItemIndex].amount = itemTobeAdded.amount;
+        const updatedItem = {
+          ...prevItems,
+          amount: parseInt(prevItems[existingItemIndex].amount) + parseInt(itemTobeAdded.amount),
+        };
+        updatedItems[existingItemIndex] = updatedItem;
+
       } else {
-        updatedItems.push(itemTobeAdded);
+        updatedItems = prevItems.concat(itemTobeAdded);
       }
       return updatedItems;
     })
